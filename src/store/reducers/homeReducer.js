@@ -2,17 +2,19 @@ import {
     createSlice,
     createAsyncThunk
 } from '@reduxjs/toolkit'
-import api from '../../api/api'
+import axios from 'axios'
+import {base_url} from '../../utils/config'
 export const get_category = createAsyncThunk(
     'product/get_category',
     async (_, {
         fulfillWithValue,
         rejectWithValue
     }) => {
+       
         try {
             const {
                 data
-            } = await api.get('/home/get-categorys')
+            } = await axios.get(`${base_url}/api/home/get-category`)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.response)
@@ -27,10 +29,11 @@ export const get_products = createAsyncThunk(
         fulfillWithValue,
         rejectWithValue
     }) => {
+       
         try {
             const {
                 data
-            } = await api.get('/home/get-products')
+            } = await axios.get(`${base_url}/api/home/get-products`,)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.response)
@@ -45,10 +48,11 @@ export const get_product = createAsyncThunk(
         fulfillWithValue,
         rejectWithValue
     }) => {
+        
         try {
             const {
                 data
-            } = await api.get(`/home/get-product/${slug}`)
+            } = await axios.get(`${base_url}/api/home/get-product/${slug}`)
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
@@ -64,10 +68,11 @@ export const price_range_product = createAsyncThunk(
         fulfillWithValue,
         rejectWithValue
     }) => {
+       
         try {
             const {
                 data
-            } = await api.get('/home/price-range-latest-product')
+            } = await axios.get(`${base_url}/api/home/price-range-latest-product`)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.response)
@@ -82,10 +87,11 @@ export const query_products = createAsyncThunk(
         fulfillWithValue,
         rejectWithValue
     }) => {
+        
         try {
             const {
                 data
-            } = await api.get(`/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''}`)
+            } = await axios.get(`${base_url}/api/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''}`)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.response)
@@ -98,12 +104,18 @@ export const customer_review = createAsyncThunk(
     'review/customer_review',
     async (info, {
         fulfillWithValue,
-        rejectWithValue
+        rejectWithValue,getState
     }) => {
+        const {token} =getState().auth
+        const config = {
+           headers: {
+              Authorization: `Bearer ${token}`,
+           },
+        };
         try {
             const {
                 data
-            } = await api.post('/home/customer/submit-review', info)
+            } = await axios.post(`${base_url}/api/home/customer/submit-review`, info,config)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.response)
@@ -121,10 +133,11 @@ export const get_reviews = createAsyncThunk(
         fulfillWithValue,
         rejectWithValue
     }) => {
+       
         try {
             const {
                 data
-            } = await api.get(`/home/customer/get-reviews/${productId}?pageNo=${pageNumber}`)
+            } = await axios.get(`${base_url}/api/home/customer/get-reviews/${productId}?pageNo=${pageNumber}`)
            
             return fulfillWithValue(data)
         } catch (error) {

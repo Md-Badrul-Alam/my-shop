@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import Headers from '../components/Headers'
 import Footer from '../components/Footer'
 import Stripe from '../components/Stripe'
+
+import bkash from '../assets/bkash.png'
+import roket from '../assets/roket.png'
+import nogot from '../assets/nogot.png'
+import stripe from '../assets/stripe.png'
 import { useLocation } from 'react-router-dom'
 const Payment = () => {
     const { state: { price, items, orderId } } = useLocation()
@@ -17,25 +22,25 @@ const Payment = () => {
                                 <div className='flex flex-wrap'>
                                     <div onClick={() => setPaymentMethod('stripe')} className={`w-[20%] border-r cursor-pointer py-8 px-12 ${paymentMethod === 'stripe' ? 'bg-white' : 'bg-slate-100'}`}>
                                         <div className='flex flex-col gap-[3px] justify-center items-center'>
-                                            <img src="http://localhost:3000/images/payment/stripe.png" alt="stripe" />
+                                            <img src={stripe} alt="stripe" />
                                             <span className='text-slate-600'>Stripe</span>
                                         </div>
                                     </div>
                                     <div onClick={() => setPaymentMethod('bkash')} className={`w-[20%] border-r cursor-pointer py-8 px-12 ${paymentMethod === 'bkash' ? 'bg-white' : 'bg-slate-100'}`}>
                                         <div className='flex flex-col gap-[3px] justify-center items-center'>
-                                            <img src="http://localhost:3000/images/payment/bkash.png" alt="bkash" />
+                                            <img src={bkash} alt="bkash" />
                                             <span className='text-slate-600'>Bkash</span>
                                         </div>
                                     </div>
                                     <div onClick={() => setPaymentMethod('nogot')} className={`w-[20%] border-r cursor-pointer py-8 px-12 ${paymentMethod === 'nogot' ? 'bg-white' : 'bg-slate-100'}`}>
                                         <div className='flex flex-col gap-[3px] justify-center items-center'>
-                                            <img src="http://localhost:3000/images/payment/nogot.png" alt="nogot" />
+                                            <img src={nogot} alt="nogot" />
                                             <span className='text-slate-600'>Nogot</span>
                                         </div>
                                     </div>
                                     <div onClick={() => setPaymentMethod('roket')} className={`w-[20%] border-r cursor-pointer py-8 px-12 ${paymentMethod === 'roket' ? 'bg-white' : 'bg-slate-100'}`}>
                                         <div className='flex flex-col gap-[3px] justify-center items-center'>
-                                            <img src="http://localhost:3000/images/payment/roket.png" alt="roket" />
+                                            <img src={roket} alt="roket" />
                                             <span className='text-slate-600'>Roket</span>
                                         </div>
                                     </div>
